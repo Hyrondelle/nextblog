@@ -1,18 +1,14 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-
+import Hero from '../components/hero'
+import Categories from '../components/categories'
+import Postslist from '../components/posts-list'
 
 export default function Home() {
-  const router =useRouter()
+  
   return (
     <div className="flex flex-col items-center justify-items-center gap-2 ">
-      <h1>home</h1>
-      <Button size="lg" variant="outline" 
-      onClick={()=>router.push("/login")}>
-        
-        click me
-      </Button>
+      <Hero/>
+      <Categories/>
+      <Postslist/>
     </div>
   );
 }

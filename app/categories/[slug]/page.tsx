@@ -7,7 +7,7 @@ type Props ={
 }
 
 const categoriesPage = async({params}:Props) => {
-    const {slug} = await params
+    const {slug} = params
     return (
         <div>
             categorie {slug}

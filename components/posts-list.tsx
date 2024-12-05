@@ -20,7 +20,7 @@ const postslist = () => {
                         <div>
                             <Badge variant="outline" >React</Badge>
                         </div>
-                        <div className='flex'>
+                        <div className='flex gap-1'>
                             <MessageCircle size={16}/>
                             <p>8</p>
                             <Eye size={16}/>

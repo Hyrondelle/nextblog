@@ -8,23 +8,23 @@ import{MessageCircle,Eye} from 'lucide-react'
 
 const postslist = () => {
     return (
-        <div className='w-full flex flex-row gap-2 '>
+        <div className='w-full grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 '>
             {POSTS.map((post)=>(
                 <Card key={post.id} 
-                className='w-1/4 flex flex-col p-3 gap-1 self-stretch'> 
-                    <Image src={post.url} width={500} height={500}  
+                className='flex flex-col p-3 gap-1 self-stretch'> 
+                    <Image src={'/backgrounddev.jpg'} width={500} height={500}  
                     alt='background post'
                      className='w-full object-cover'/>
                      <div className='flex flex-col h-full justify-between'>
                         <h1 className='text-wrap break-words'>{post.title}</h1>
                         <div>
-                            <Badge variant="outline" >React</Badge>
+                            <Badge variant="outline" >{post.category}</Badge>
                         </div>
                         <div className='flex gap-1'>
                             <MessageCircle size={16}/>
-                            <p>8</p>
+                            <p>{post.nbComments}</p>
                             <Eye size={16}/>
-                            <p>25</p>
+                            <p>{post.nbLikes}</p>
                         </div>
                         </div>
                 </Card>

@@ -24,14 +24,13 @@ export function ToggleTheme() {
 
   return (
     
-        <Button variant="outline" size="icon"
-        className="flex justify-center"
+        <Button variant="ghost" size="icon"
+        className="flex justify-center gap-0"
         onClick={modifTheme}>
-
-
-          <Sun className="h-6 w-6 scale-0 dark:scale-100" />
-          <Moon className="h-6 w-6 scale-100 dark:scale-0" />
-          
+          <div className="size-full flex items-center justify-center ">
+          <Sun className="translate-x-2 -translate-y-0.5 scale-100 dark:scale-0" />
+          <Moon className="-translate-x-2 -translate-y-0.5 scale-0 dark:scale-100" />
+          </div>
         </Button>
       
   )

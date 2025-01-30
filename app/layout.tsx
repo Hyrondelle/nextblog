@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/header"
 import Footer from "../components/footer"
 import { ThemeProvider } from "@/providers/theme-provider";
+import  QueryProvider  from "@/providers/query-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <QueryProvider>
         <ThemeProvider 
         attribute="class"
         defaultTheme="system"
@@ -43,6 +45,7 @@ export default function RootLayout({
             <Footer/>
           </div>
         </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

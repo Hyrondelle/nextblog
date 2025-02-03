@@ -1,5 +1,5 @@
-import { posts } from "@/types";
-import { Post } from "@prisma/client";
+
+
 import { useQuery } from "@tanstack/react-query";
 
 async function getPostBySlug(slug:string){

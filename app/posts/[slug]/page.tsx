@@ -7,13 +7,8 @@ import { Avatar } from '@/components/ui/avatar';
 import { Eye, MessageCircle } from 'lucide-react';
 import { UsePost } from '@/hooks/usePost';
 
-type props ={
-    params:{
-        slug:string
-    }
-}
 
-const postPage = ({params}:props) => {
+const postPage = ({params}:{params:{slug:string}}) => {
     const {slug} = params
     const {data:post,isFetching,error} = UsePost(slug)
 

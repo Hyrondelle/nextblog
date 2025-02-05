@@ -4,8 +4,8 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 export const GET = async () =>{
    
-    const post = await prisma.post.findMany()
-    console.log(post);
+    const posts = await prisma.post.findMany()
+    console.log(posts);
     
-    return NextResponse.json(post,{status:200})
+    return NextResponse.json(posts,{status:200})
 }

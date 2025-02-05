@@ -1,6 +1,11 @@
-import { CATEGORIES } from "@/utils/categories"
 import { NextResponse } from "next/server"
+import { PrismaClient } from "@prisma/client"
 
-export const GET = async() =>{
-    return NextResponse.json(CATEGORIES,{status:200})
+const prisma = new PrismaClient()
+export const GET = async () =>{
+   
+    const categories = await prisma.category.findMany()
+    console.log(categories);
+    
+    return NextResponse.json(categories,{status:200})
 }

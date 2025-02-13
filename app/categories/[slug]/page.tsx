@@ -6,16 +6,11 @@ import { posts } from '@/types';
 import { Eye, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { use } from 'react';
 
-type Props ={
-    params:{
-        slug:string
-    }
-}
 
-const categoriesPage = async({params}:Props) => {
-    const {slug} = params
+const CategoriesPage = ({params}:{params:Promise<{slug:string}>}) => {
+    const {slug} = use(params)
     const {data:posts,isFetching,isError} = UsePosts(slug)
     if(isFetching) return <p>Loading</p>
     if(isError) return <p>Error</p>
@@ -48,4 +43,4 @@ const categoriesPage = async({params}:Props) => {
     );
 };
 
-export default categoriesPage;
+export default CategoriesPage;

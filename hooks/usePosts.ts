@@ -1,5 +1,3 @@
-
-
 import { useQuery } from "@tanstack/react-query";
 
 async function getPosts(slug:string|null=null){

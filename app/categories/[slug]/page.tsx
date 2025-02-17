@@ -2,22 +2,22 @@
 
 import { Card } from '@/components/ui/card';
 import { UsePosts } from '@/hooks/usePosts';
-import { posts } from '@/types';
+import { Post } from '@prisma/client';
 import { Eye, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { use } from 'react';
-
 
 const CategoriesPage = ({params}:{params:Promise<{slug:string}>}) => {
     const {slug} = use(params)
     const {data:posts,isFetching,isError} = UsePosts(slug)
     if(isFetching) return <p>Loading</p>
     if(isError) return <p>Error</p>
-
+    console.log(posts);
+    
     return (
-        <div>
-            {posts.map((post:posts)=>{
+        <div className='w-full grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-center'>
+            {posts.map((post:Post)=>{
                 <Link key={post.id} href={"/posts/"+post.slug}>
                 <Card  
                 className='flex flex-col p-6 gap-1 self-stretch max-w-md '> 

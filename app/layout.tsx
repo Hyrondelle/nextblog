@@ -29,10 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        suppressHydrationWarning>
         <QueryProvider>
         <ThemeProvider 
         attribute="class"

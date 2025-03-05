@@ -1,6 +1,14 @@
+'use client';
 import React from 'react';
-
-const writePost = () => {
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+const WritePost = () => {
+    const {data:session} = useSession();
+    console.log(session);
+    
+    if(!session){
+        redirect('/login');
+    }
     return (
         <div>
             write a post
@@ -8,4 +16,4 @@ const writePost = () => {
     );
 };
 
-export default writePost;
+export default WritePost;

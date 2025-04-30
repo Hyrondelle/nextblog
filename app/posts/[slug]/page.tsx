@@ -44,7 +44,7 @@ const postPage = ({params}:{params:{slug:string}}) => {
             </div>
 
             <div className='mt-4 pb-4 border-b'>
-                {/* {post.content} */}
+                {post.content} 
             </div>
 
             <div>

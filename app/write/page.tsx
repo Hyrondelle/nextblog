@@ -15,7 +15,7 @@ import axios from 'axios'
 
 const WritePost = () => {
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const [contentWhithP, setContent] = useState('');
     const [catSlug, setCatSlug] = useState('');
 
     const sendPost = async(newPost:Partial<Post>) =>{
@@ -32,9 +32,11 @@ const WritePost = () => {
             
         },
     })
+    
 
     const handleSubmit = async (e:SyntheticEvent) =>{
         e.preventDefault()
+        const content = contentWhithP.replace('<p>',"").replace('</p>',"")
         if(title!==""&& title!==null&& content!==""&&content!==null&&catSlug!==""&&catSlug!==null){
         await mutate({
             title,
@@ -69,7 +71,7 @@ const WritePost = () => {
                         ))}
                     </SelectContent>
                 </Select>}
-                <ReactQuill className='my-4' theme="snow" value={content} onChange={setContent}/>
+                <ReactQuill className='my-4' theme="snow" value={contentWhithP} onChange={setContent}/>
                 <Button onClick={handleSubmit}>Publish</Button>
             </div>
             

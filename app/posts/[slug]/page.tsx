@@ -6,10 +6,11 @@ import Pagecontainer from '@/components/page-container';
 import { Avatar } from '@/components/ui/avatar';
 import { Eye, MessageCircle } from 'lucide-react';
 import { UsePost } from '@/hooks/usePost';
+import { use } from 'react';
 
 
-const postPage = ({params}:{params:{slug:string}}) => {
-    const {slug} = params
+const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
+    const {slug} = use(params)
     const {data:post,isFetching,error} = UsePost(slug)
 
     if(isFetching) return <p>Loading</p>
@@ -28,31 +29,31 @@ const postPage = ({params}:{params:{slug:string}}) => {
             <div className='flex justify-between border-b p-4'>
                 <div className='flex gap-2'>
                     <Avatar className='bg-teal-600 items-center justify-center text-xl ml-4'>
-                    {/* {data?.author[0]} */}
+                    {post.userMail[0]}
                     </Avatar>
                     <div>
-                        {/* <div>{post.author}</div> */}
+                        <div>{post.userMail}</div> 
                         <div className='text-slate-400'>posté le {post.createdAt}</div>
                     </div>
                 </div>
                 <div className='mr-4 flex items-center gap-1'>
                     <MessageCircle size={16}/>
-                    {/* <p>{post.nbComments}</p> */}
+                    {post.nbComments}
                     <Eye size={16}/>
-                    {/* <p>{post.nbLikes}</p> */}
+                    {post.view}
                 </div>
             </div>
 
-            <div className='mt-4 pb-4 border-b'>
+            <div className='mt-4 ml-3 pb-4 border-b'>
                 {post.content} 
             </div>
 
             <div>
-                <p className='font-extrabold mt-4'>Comments</p>
-                <p className='mt-2'>Login to write a comment</p>
+                <p className='font-extrabold mt-4 ml-2'>Comments</p>
+                
             </div>
         </Pagecontainer>
     );
 };
 
-export default postPage;
+export default PostPage;

@@ -11,9 +11,11 @@ import 'react-quill-new/dist/quill.snow.css';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios'
+import { useRouter } from 'next/navigation';
 
 
 const WritePost = () => {
+    const router = useRouter()
     const [title, setTitle] = useState('');
     const [contentWhithP, setContent] = useState('');
     const [catSlug, setCatSlug] = useState('');
@@ -29,7 +31,7 @@ const WritePost = () => {
         mutationFn:sendPost,
         onSuccess(data) {
             console.log("data on success",data);
-            
+            router.push("/")
         },
     })
     
@@ -44,8 +46,8 @@ const WritePost = () => {
             catSlug,
             slug:title.trim().toLocaleLowerCase().replace(" ","-"),
             image:"/backgrounddev.jpg"
-        })
-    }
+            })
+        }
     }
     
     if(!session){

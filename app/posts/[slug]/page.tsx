@@ -7,6 +7,8 @@ import { Avatar } from '@/components/ui/avatar';
 import { Eye, MessageCircle } from 'lucide-react';
 import { UsePost } from '@/hooks/usePost';
 import { use } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
 
 const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
@@ -49,8 +51,13 @@ const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
             </div>
 
             <div>
-                <p className='font-extrabold mt-4 ml-2'>Comments</p>
-                
+                <div className='w-11/12 flex flex-col gap-1'>
+                    <p className='font-extrabold mt-4 ml-2'>Comments</p>
+                    <Textarea className='mx-auto' placeholder='any comments?'/>
+                    <Button>
+                        Add your comment
+                    </Button>
+                </div>
             </div>
         </Pagecontainer>
     );

@@ -50,11 +50,11 @@ const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
                 {post.content} 
             </div>
 
-            <div>
-                <div className='w-11/12 flex flex-col gap-1'>
-                    <p className='font-extrabold mt-4 ml-2'>Comments</p>
+            <div className='flex justify-center'>
+                <div className='w-11/12 flex flex-col gap-2'>
+                    <p className='font-extrabold mt-4 ml-2 text-2xl'>Comments</p>
                     <Textarea className='mx-auto' placeholder='any comments?'/>
-                    <Button>
+                    <Button className='w-2/12 mb-2'>
                         Add your comment
                     </Button>
                 </div>

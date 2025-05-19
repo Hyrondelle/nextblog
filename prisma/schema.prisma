@@ -67,7 +67,7 @@ model VerificationToken {
 
 model Post{
   id String @id @default(cuid())
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Time(0)
   title String
   slug String @unique
   content String @db.Text

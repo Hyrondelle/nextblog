@@ -67,7 +67,7 @@ model VerificationToken {
 
 model Post{
   id String @id @default(cuid())
-  createdAt DateTime @default(now()) @db.Time(0)
+  createdAt DateTime @default(now()) 
   title String
   slug String @unique
   content String @db.Text
@@ -78,6 +78,7 @@ model Post{
   user User @relation(fields:[userMail],references: [email])
   catSlug String
   cat Category @relation(fields: [catSlug],references: [slug])
+  comments Comment[]
 }
 
 model Category{
@@ -86,4 +87,11 @@ model Category{
   slug String @unique
   image String?
   posts Post[]
+}
+
+model Comment{
+  id String @id @default(cuid())
+  commentary String
+  idPost String
+  post Post @relation(fields: [idPost],references: [id])
 }

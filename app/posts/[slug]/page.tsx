@@ -20,8 +20,8 @@ const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
     const {data:post,isFetching,error} = UsePost(slug)
     const {data:session} = useSession();
 
-    const sendComment = async(newPost:Partial<Post>) =>{
-        const data = await axios.post("/api/posts",newPost)
+    const sendComment = async(newComment:Comment) =>{
+        const data = await axios.post("/api/posts",newComment)
         return data;
     }
     const {mutate}= useMutation({

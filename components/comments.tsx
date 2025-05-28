@@ -17,7 +17,7 @@ const Comments = ({postSlug}:{postSlug:string}) => {
         return data;
     }
 
-    const {mutate}= useMutation({
+    const {mutate,isPending}= useMutation({
         mutationFn:sendComment,
         onSuccess(data) {
             console.log("data on success",data);
@@ -43,6 +43,7 @@ const Comments = ({postSlug}:{postSlug:string}) => {
                         <div>
                     <Textarea onChange={(e)=>setCommentary(e.target.value)} className='mx-auto' placeholder='any comments?'/>
                     <Button onClick={handleSubmit}
+                    disabled={commentary==="" || isPending}
                     className='w-2/12 mb-2'>
                         Add your comment
                     </Button>

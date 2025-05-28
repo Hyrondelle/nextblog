@@ -54,6 +54,7 @@ model User {
  
   @@map("users")
   posts Post[]
+  comments Comment[]
 }
  
 model VerificationToken {
@@ -91,7 +92,10 @@ model Category{
 
 model Comment{
   id String @id @default(cuid())
+  createdAt DateTime @default(now())
   commentary String
-  idPost String
-  post Post @relation(fields: [idPost],references: [id])
+  postSlug String
+  post Post @relation(fields: [postSlug],references: [slug])
+  userEmail String
+  user User @relation(fields: [userEmail],references: [email])
 }

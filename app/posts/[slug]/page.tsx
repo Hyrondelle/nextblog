@@ -5,44 +5,14 @@ import bgphoto from '@/public/backgrounddev.jpg'
 import Pagecontainer from '@/components/page-container';
 import { Avatar } from '@/components/ui/avatar';
 import { Eye, MessageCircle } from 'lucide-react';
-import { useSession } from 'next-auth/react';
 import { UsePost } from '@/hooks/usePost';
-import axios from 'axios'
-import { use, useState, SyntheticEvent } from 'react';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { useMutation } from '@tanstack/react-query';
-
-
+import { use } from 'react';
+import Comments from '@/components/comments';
 const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
     const {slug} = use(params)
-    const [comment, setComment] = useState('');
+    
     const {data:post,isFetching,error} = UsePost(slug)
-    const {data:session} = useSession();
-
-    const sendComment = async(newComment:Comment) =>{
-        const data = await axios.post("/api/posts",newComment)
-        return data;
-    }
-    const {mutate}= useMutation({
-        mutationFn:sendComment,
-        onSuccess(data) {
-            console.log("data on success",data);
-            
-        },
-    })
-
-    const handleSubmit = async (e:SyntheticEvent) =>{
-        e.preventDefault()
-        
-        if(comment!==""&& comment!==null){
-        await mutate({
-            commentary:comment,
-            idPost:post.id,
-            })
-        }
-    }
-
+    
     if(isFetching) return <p>Loading</p>
     if(error) return <p>Error</p>
     return (
@@ -78,16 +48,7 @@ const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
                 {post.content} 
             </div>
 
-            <div className='flex justify-center'>
-                <div className='w-11/12 flex flex-col gap-2'>
-                    <p className='font-extrabold mt-4 ml-2 text-2xl'>Comments</p>
-                    <Textarea onChange={(e)=>setComment(e.target.value)} className='mx-auto' placeholder='any comments?'/>
-                    <Button onClick={handleSubmit}
-                    className='w-2/12 mb-2'>
-                        Add your comment
-                    </Button>
-                </div>
-            </div>
+            <Comments postSlug={slug}/>
         </Pagecontainer>
     );
 };

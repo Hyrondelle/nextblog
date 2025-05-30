@@ -8,10 +8,12 @@ import { useMutation } from '@tanstack/react-query';
 import { Comment } from '@prisma/client';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { UseComments } from '@/hooks/useComments';
 
 const Comments = ({postSlug}:{postSlug:string}) => {
     const [commentary, setCommentary] = useState('');
     const {status} = useSession();
+    const {data:comments,isFetching,isError} = UseComments(postSlug)
     const sendComment = async(newComment:Partial<Comment>) =>{
         const data = await axios.post("/api/comments",newComment)
         return data;
@@ -35,6 +37,8 @@ const Comments = ({postSlug}:{postSlug:string}) => {
             })
         }
     }
+    if(isFetching) return <p>Loading</p>
+    if(isError) return <p>Error</p>
     return (
         <div className='flex justify-center'>
                 <div className='w-11/12 flex flex-col gap-2'>
@@ -54,6 +58,12 @@ const Comments = ({postSlug}:{postSlug:string}) => {
                         </Link>
                     )}
                 </div>
+                {comments.map((comment:Comment)=>(
+                    <div key={comment.id}>
+                        <p>{comment.createdAt.toLocaleDateString()}</p>
+                        <p>{comment.commentary}</p>
+                    </div>
+                ))}
             </div>
     );
 };

@@ -10,8 +10,12 @@ import { use } from 'react';
 import Comments from '@/components/comments';
 const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
     const {slug} = use(params)
-    
     const {data:post,isFetching,error} = UsePost(slug)
+
+    const transformDate = (date:string) =>{
+        const updateDate = new Date(date).toLocaleDateString()
+        return updateDate
+    }
     
     if(isFetching) return <p>Loading</p>
     if(error) return <p>Error</p>
@@ -33,7 +37,7 @@ const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
                     </Avatar>
                     <div>
                         <div>{post.userMail}</div> 
-                        <div className='text-slate-400'>posté le {post.createdAt}</div>
+                        <div className='text-slate-400'>posté le {transformDate(post.createdAt)}</div>
                     </div>
                 </div>
                 <div className='mr-4 flex items-center gap-1'>

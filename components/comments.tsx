@@ -33,14 +33,18 @@ const Comments = ({postSlug}:{postSlug:string}) => {
         await mutate({
             commentary,
             postSlug,
-            
             })
         }
     }
+    const transformDate = (date:string) =>{
+        const updateDate = new Date(date).toLocaleDateString()
+        return updateDate
+    }
+
     if(isFetching) return <p>Loading</p>
     if(isError) return <p>Error</p>
     return (
-        <div className='flex justify-center'>
+        <div className='flex flex-col justify-center'>
                 <div className='w-11/12 flex flex-col gap-2'>
                     <p className='font-extrabold mt-4 ml-2 text-2xl'>Comments</p>
                     {status==="authenticated" ? (
@@ -58,12 +62,14 @@ const Comments = ({postSlug}:{postSlug:string}) => {
                         </Link>
                     )}
                 </div>
+                <div className='w-11/12 flex flex-col gap-2 ml-6'>
                 {comments.map((comment:Comment)=>(
                     <div key={comment.id}>
-                        <p>{comment.createdAt.toLocaleDateString()}</p>
+                        <p className='text-slate-400'>{transformDate(comment.createdAt.toString())}</p>
                         <p>{comment.commentary}</p>
                     </div>
                 ))}
+                </div>
             </div>
     );
 };

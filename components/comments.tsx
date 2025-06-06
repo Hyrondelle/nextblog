@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent} from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import axios from 'axios'
@@ -13,7 +13,7 @@ import { UseComments } from '@/hooks/useComments';
 const Comments = ({postSlug}:{postSlug:string}) => {
     const [commentary, setCommentary] = useState('');
     const {status} = useSession();
-    const {data:comments,isFetching,isError} = UseComments(postSlug)
+
     const sendComment = async(newComment:Partial<Comment>) =>{
         const data = await axios.post("/api/comments",newComment)
         return data;
@@ -23,8 +23,10 @@ const Comments = ({postSlug}:{postSlug:string}) => {
         mutationFn:sendComment,
         onSuccess(data) {
             console.log("data on success",data);
+            setCommentary("")
             
         },
+        
     })
     const handleSubmit = async (e:SyntheticEvent) =>{
         e.preventDefault()
@@ -34,22 +36,23 @@ const Comments = ({postSlug}:{postSlug:string}) => {
             commentary,
             postSlug,
             })
+            
         }
+        
     }
     const transformDate = (date:string) =>{
         const updateDate = new Date(date).toLocaleDateString()
         return updateDate
     }
+    const {data:comments,isFetching} = UseComments(postSlug)
 
-    if(isFetching) return <p>Loading</p>
-    if(isError) return <p>Error</p>
     return (
         <div className='flex flex-col justify-center'>
                 <div className='w-11/12 flex flex-col gap-2'>
                     <p className='font-extrabold mt-4 ml-2 text-2xl'>Comments</p>
                     {status==="authenticated" ? (
                         <div>
-                    <Textarea onChange={(e)=>setCommentary(e.target.value)} className='mx-auto' placeholder='any comments?'/>
+                    <Textarea value={commentary} onChange={(e)=>setCommentary(e.target.value)} className='mx-auto' placeholder='any comments?'/>
                     <Button onClick={handleSubmit}
                     disabled={commentary==="" || isPending}
                     className='w-2/12 mb-2'>
@@ -63,7 +66,7 @@ const Comments = ({postSlug}:{postSlug:string}) => {
                     )}
                 </div>
                 <div className='w-11/12 flex flex-col gap-2 ml-6'>
-                {comments.map((comment:Comment)=>(
+                {isFetching?<p>Loading</p>:comments.map((comment:Comment)=>(
                     <div key={comment.id}>
                         <p className='text-slate-400'>{transformDate(comment.createdAt.toString())}</p>
                         <p>{comment.commentary}</p>

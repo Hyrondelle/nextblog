@@ -12,11 +12,14 @@ import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
+import { Input } from '@/components/ui/input';
 
 
 const WritePost = () => {
     const router = useRouter()
     const [title, setTitle] = useState('');
+    const [image, setImage] = useState<File>();
+    const [imagePreview, setImagePreview] = useState<string|null>(null);
     const [contentWhithP, setContent] = useState('');
     const [catSlug, setCatSlug] = useState('');
 
@@ -62,6 +65,10 @@ const WritePost = () => {
                 placeholder='title' 
                 className='my-4'
                 onChange={(e)=>setTitle(e.target.value)}/>
+                <div>
+                    {imagePreview && <img src={imagePreview} alt="image preview" className='w-20 h-20 rounded-full'/>}
+                    <Input type="file" onChange={(e)=>setImage(e.target.files?.[0])}/>
+                </div>
                 {isFetching?<p>Loading</p>:
                 <Select onValueChange={(e)=>setCatSlug(e)}>
                     <SelectTrigger>

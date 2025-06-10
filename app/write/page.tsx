@@ -13,13 +13,14 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import Image from 'next/image';
 
 
 const WritePost = () => {
     const router = useRouter()
     const [title, setTitle] = useState('');
     const [image, setImage] = useState<File>();
-    const [imagePreview, setImagePreview] = useState<string|null>(null);
+    const [imageUrl, setImageUrl] = useState<string|null>(null);
     const [contentWhithP, setContent] = useState('');
     const [catSlug, setCatSlug] = useState('');
 
@@ -52,6 +53,14 @@ const WritePost = () => {
             })
         }
     }
+
+    const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        const file = e.target.files?.[0]
+        if(file){
+            setImage(file)
+            setImageUrl(URL.createObjectURL(file))
+        }
+    }
     
     if(!session){
         redirect('/login');
@@ -65,9 +74,13 @@ const WritePost = () => {
                 placeholder='title' 
                 className='my-4'
                 onChange={(e)=>setTitle(e.target.value)}/>
-                <div>
-                    {imagePreview && <img src={imagePreview} alt="image preview" className='w-20 h-20 rounded-full'/>}
-                    <Input type="file" onChange={(e)=>setImage(e.target.files?.[0])}/>
+                <div className='mb-6'>
+                    
+                    {imageUrl && <div className='relative mx-auto w-40 h-40'>
+                    <Image src={imageUrl} fill alt="image"/>
+                    </div>
+}
+                    <Input type="file" onChange={handleImageChange}/>
                 </div>
                 {isFetching?<p>Loading</p>:
                 <Select onValueChange={(e)=>setCatSlug(e)}>

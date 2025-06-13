@@ -42,15 +42,30 @@ const WritePost = () => {
 
     const handleSubmit = async (e:SyntheticEvent) =>{
         e.preventDefault()
+        const image = await uploadImage()
+        console.log("image is",image);
+        
         const content = contentWhithP.replace('<p>',"").replace('</p>',"")
-        if(title!==""&& title!==null&& content!==""&&content!==null&&catSlug!==""&&catSlug!==null){
+        if(title!==""&& title!==null&& content!==""&&content!==null&&catSlug!==""&&catSlug!==null && !image){
         await mutate({
             title,
             content,
             catSlug,
             slug:title.trim().toLocaleLowerCase().replace(" ","-"),
-            image:"/backgrounddev.jpg"
+            image:image
             })
+        }
+    }
+    const uploadImage = async () =>{
+        try {
+            if(!image)return
+            const data = new FormData()
+            data.set("file",image)
+            const response = await axios.post("/api/upload",data)
+            return response.data
+        } catch (error) {
+            console.log("error in upload image",error);
+            
         }
     }
 

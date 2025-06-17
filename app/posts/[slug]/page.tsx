@@ -1,7 +1,6 @@
 "use client"
 
 import Image from 'next/image';
-import bgphoto from '@/public/backgrounddev.jpg'
 import Pagecontainer from '@/components/page-container';
 import { Avatar } from '@/components/ui/avatar';
 import { Eye, MessageCircle } from 'lucide-react';
@@ -21,8 +20,11 @@ const PostPage = ({params}:{params:Promise<{slug:string}>}) => {
     if(error) return <p>Error</p>
     return (
         <Pagecontainer>
-            <div className='w-full relative mt-4'>
-                <Image className='rounded-2xl p-2 w-full h-[40vh] object-cover' src={bgphoto} alt='background picture'/>
+            <div className='mx-[10vw] w-[80vw] h-[40vh] relative mt-4'>
+                <div>
+                <Image className=' rounded-2xl p-2 w-full h-[40vh] object-cover' fill
+                src={post.image} alt='background picture'/>
+                </div>
                 <div className='w-1/3 h-2/5 absolute top-1/2 left-1/2 
                 -translate-x-1/2 -translate-y-1/2 bg-slate-500/80
                 rounded-sm p-1 gap-1 flex flex-col justify-center'>

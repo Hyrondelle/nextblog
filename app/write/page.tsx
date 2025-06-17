@@ -46,7 +46,7 @@ const WritePost = () => {
         console.log("image is",image);
         
         const content = contentWhithP.replace('<p>',"").replace('</p>',"")
-        if(title!==""&& title!==null&& content!==""&&content!==null&&catSlug!==""&&catSlug!==null && !image){
+        if(title!==""&& title!==null&& content!==""&&content!==null&&catSlug!==""&&catSlug!==null && image){
         await mutate({
             title,
             content,

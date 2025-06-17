@@ -19,7 +19,7 @@ import Image from 'next/image';
 const WritePost = () => {
     const router = useRouter()
     const [title, setTitle] = useState('');
-    const [image, setImage] = useState<File>();
+    const [fileChoice, setFileChoice] = useState<File>();
     const [imageUrl, setImageUrl] = useState<string|null>(null);
     const [contentWhithP, setContent] = useState('');
     const [catSlug, setCatSlug] = useState('');
@@ -58,9 +58,10 @@ const WritePost = () => {
     }
     const uploadImage = async () =>{
         try {
-            if(!image)return
+            if(!fileChoice)return;
+
             const data = new FormData()
-            data.set("file",image)
+            data.set("file",fileChoice)
             const response = await axios.post("/api/upload",data)
             return response.data
         } catch (error) {
@@ -72,7 +73,7 @@ const WritePost = () => {
     const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         const file = e.target.files?.[0]
         if(file){
-            setImage(file)
+            setFileChoice(file)
             setImageUrl(URL.createObjectURL(file))
         }
     }
